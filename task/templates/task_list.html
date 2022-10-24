@@ -1,0 +1,68 @@
+{%extends 'base.html'%}
+{%block body_block%}
+
+<div class="container">
+    <h2>{{request.user}}</h2>
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            {%if messages%}
+                {%for  msg in messages%}
+                {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{msg}}</strong> 
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                
+                {% endif %}
+                {%endfor%}
+            {%endif%}
+
+        </div>
+        <div class="col-4"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+
+            <table class="table mt-4">
+                <tr>
+                    <th>id</th>
+                    <th>task_name</th>
+                    <th>user</th>
+                    <th>created_date</th>
+                    <th>status</th>
+                    <th>action</th>
+
+                </tr>
+                {%for task in todos%}
+                <tr>
+                    <td>{{task.id}}</td>
+                    <td>{{task.task_name}}</td>
+                    <td>{{task.user}}</td>
+                    <td>{{task.created_date}}</td>
+                    <td>{{task.status}}</td>
+                    <td>
+                        <a href="{%url 'todo-detail' task.id%}"  class="btn btn-outline-dark">details</a>
+                        <a href="{%url 'edit' task.id%}" class="btn btn-outline-info">edit</a>
+                        <a href="{%url 'todo-delete' task.id%}" class="btn btn-outline-danger">delete</a>
+
+                    </td>
+
+
+                </tr>
+                {%endfor%}
+
+
+
+
+            </table>
+
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
+
+
+{%endblock%}
